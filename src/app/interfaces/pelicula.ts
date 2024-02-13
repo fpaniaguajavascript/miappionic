@@ -4,5 +4,6 @@ export interface Pelicula {
     cast:[],
     genres:[],
     href:string,
-    extract:string
+    extract:string,
+    thumbnail:string
 }

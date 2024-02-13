@@ -11,6 +11,8 @@
   <ion-list>
     <ion-item *ngFor="let pelicula of peliculas">
       <ion-label>{{pelicula.title}}</ion-label>
+      <ion-label>{{pelicula.year}}</ion-label>
+      <ion-img class="imagen" [src]="pelicula.thumbnail"></ion-img>
     </ion-item>
   </ion-list> 
 </ion-content>
