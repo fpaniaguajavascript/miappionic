@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Formulario</ion-title>
+    <ion-title>Búsqueda</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -34,6 +34,9 @@
       </ion-item>
       <ion-item>
         <ion-img *ngIf="pelicula" src="{{pelicula?.Poster}}" id="poster"></ion-img>
+      </ion-item>
+      <ion-item>
+        <ion-button class="full-button">Guardar</ion-button>
       </ion-item>
     </ion-list>
 </ion-content>
