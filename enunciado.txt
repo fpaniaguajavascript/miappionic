@@ -1,0 +1,7 @@
+1. WebService del OMDB API
+2. Disponemos de un formulario que nos solicita el título de una película.
+3. Buscamos la película en OMDB. https://www.omdbapi.com/
+4. Almacenamos la película en una lista y la guardamos en local.
+5. Disponemos de una pantalla de consulta de las películas que están almacenadas.
+6. Disponemos de la posibilidad de eleminar películas de la lista.
+7. Disponemos de la posibilidad de calificar la lista con estrellas (entre 1 y 5)
