@@ -1,14 +1,18 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Pelicula } from '../interfaces/pelicula';
+import { OMDB_API_KEY } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpdataService {
-  static URL = "https://fpaniaguajavascript.github.io/movies/movies-1900s.json";
+  static URL = "http://www.omdbapi.com/";
   constructor(private clienteHttp:HttpClient) { }
-  getMovies() {
-    return this.clienteHttp?.get<Pelicula[]>(HttpdataService.URL);//Devuelve un Observable
+  getMovie(titulo:string) {
+    const parametros = new HttpParams().
+      append('apikey', OMDB_API_KEY).
+      append('t', titulo);
+    return this.clienteHttp?.get<Pelicula>(HttpdataService.URL, {params:parametros});//Devuelve un Observable
   }
 }

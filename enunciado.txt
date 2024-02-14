@@ -5,3 +5,5 @@
 5. Disponemos de una pantalla de consulta de las películas que están almacenadas.
 6. Disponemos de la posibilidad de eleminar películas de la lista.
 7. Disponemos de la posibilidad de calificar la lista con estrellas (entre 1 y 5)
+
+http://www.omdbapi.com/?apikey=tu-key&t=Alien
