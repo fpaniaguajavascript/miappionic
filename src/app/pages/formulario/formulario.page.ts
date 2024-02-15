@@ -50,4 +50,11 @@ export class FormularioPage implements OnInit {
       this.pelicula = pelicula;
     })
   }
+  /*
+  buscarPeliculaExistente() {
+    this.ldbs.getAllPeliculas().then(peliculas=>{
+      this.pelicula = peliculas.find((pelicula:Pelicula) => pelicula.Title == this.titulo);
+    })
+  }
+  */
 }

@@ -38,6 +38,7 @@ export class LocaldatabaseService {
         console.log("Fin del proceso de almacenamiento");
       });
   }
+
   getPelicula(titulo: string) : Observable<Pelicula>{
     return new Observable(subscriber=>{
       this.storage.get(NODO_RAIZ).then((peliculas) => {
@@ -46,6 +47,7 @@ export class LocaldatabaseService {
         subscriber.complete();
       })});
   }
+
   getAllPeliculas() {
     return this.storage.get(NODO_RAIZ);
   }
