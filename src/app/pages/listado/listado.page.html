@@ -8,7 +8,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-    <ion-item *ngFor="let pelicula of peliculas">
+  <ion-item>
+    <ion-input placeholder="Título" [(ngModel)]="titulo" (input)="filtrar()"></ion-input>
+    <ion-badge slot="start" color="warning">{{peliculas.length}}</ion-badge>
+  </ion-item>
+  <ion-item-sliding *ngFor="let pelicula of peliculas">
+    <ion-item>
       <ion-icon name="film"></ion-icon>
       <ion-label>{{pelicula.Title}}</ion-label>
       <ion-icon name="chatbox"></ion-icon>
@@ -17,4 +22,9 @@
       <ion-label>{{pelicula.Year}}</ion-label>
       <ion-img [src]="pelicula.Poster" class="imagen"></ion-img>
     </ion-item>
+    <ion-item-options>
+      <ion-item-option color="success" (click)="editar(pelicula.Title)">Editar</ion-item-option>
+      <ion-item-option color="danger" (click)="borrar(pelicula.Title)">Borrar</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
 </ion-content>
