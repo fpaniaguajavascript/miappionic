@@ -17,10 +17,12 @@
         <ion-list id="labels-list">
           <ion-list-header>Géneros</ion-list-header>
 
-          <ion-item *ngFor="let label of labels" lines="none">
-            <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-            <ion-label>{{ label }}</ion-label>
-          </ion-item>
+          <ion-menu-toggle auto-hide="false" *ngFor="let label of labels">
+            <ion-item routerDirection="root" [routerLink]="[label.url]" lines="none" detail="false" routerLinkActive="listado">
+              <ion-icon slot="start" [name]="label.icon"></ion-icon>
+              <ion-label>{{ label.label }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-list>
       </ion-content>
     </ion-menu>
