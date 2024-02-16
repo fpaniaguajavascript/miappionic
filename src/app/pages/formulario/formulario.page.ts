@@ -10,6 +10,15 @@ import { LocaldatabaseService } from 'src/app/services/localdatabase.service';
   styleUrls: ['./formulario.page.scss'],
 })
 export class FormularioPage implements OnInit {
+  mensajeVisible:boolean=false;
+  botonCierre = ['Aceptar'];
+  
+  mensaje={
+    header:"SuperMovies",
+    subHeader:"Búsqueda",
+    message:""
+  }
+
   bucle:string[]=new Array<string>(10);
   titulo: string = "";
   cargando: boolean = false;
@@ -17,11 +26,40 @@ export class FormularioPage implements OnInit {
   constructor(private httpds: HttpdataService, private ldbs: LocaldatabaseService) {
   }
 
+  setOpen(open:boolean){
+    this.mensajeVisible=open;
+  }
+
   ngOnInit() {
     console.log("formulario.page.ngOnInit...");
   }
 
+  mostrarMensaje(mensaje:string){
+    this.mensaje.message=mensaje;
+    this.setOpen(true);
+  }
+
   buscarPelicula() {
+    this.ldbs.getPelicula(this.titulo).subscribe({
+      next:pelicula => {
+        if(pelicula!=undefined){
+          this.pelicula = pelicula;
+          this.mostrarMensaje("La película ha sido encontrada en el almacenamiento local");
+        } else {
+          this.buscarPeliculaOMDB();
+        }
+      },
+      error:e => {
+        console.error("Ha ocurrido un error al tratar de obtener la base de datos");
+        this.buscarPeliculaOMDB();
+      },
+      complete:() =>{
+        //NADA
+      }
+    });
+  }
+
+  private buscarPeliculaOMDB() {
     let formulario = this;
     this.cargando = true;
     console.log("Buscando película...");
@@ -30,9 +68,11 @@ export class FormularioPage implements OnInit {
         next(retorno: Pelicula) {
           console.warn("La petición se ha resuelto satisfactoriamente");
           formulario.pelicula = retorno;
+          formulario.mostrarMensaje("La película ha sido encontrada en OMDB");
         },
         error(error: HttpErrorResponse) {
           console.error("Ha ocurrido un error:" + error.error);
+          formulario.mostrarMensaje("Ha ocurrido un error al acceder a OMDB");
         },
         complete() {
           console.log("Finalizado");
@@ -43,13 +83,15 @@ export class FormularioPage implements OnInit {
 
   guardarPelicula() {
     this.ldbs.guardarPelicula(this.pelicula);
+    this.pelicula=null;
+    this.titulo="";
   }
 
-  buscarPeliculaExistente() {
-    this.ldbs.getPelicula(this.titulo).subscribe(pelicula => {
-      this.pelicula = pelicula;
-    })
+  
+  valorar(valor:number){
+    console.log("Valorando:"+valor);
   }
+  
   /*
   buscarPeliculaExistente() {
     this.ldbs.getAllPeliculas().then(peliculas=>{

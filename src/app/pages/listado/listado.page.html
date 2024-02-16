@@ -8,5 +8,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-      
+    <ion-item *ngFor="let pelicula of peliculas">
+      <ion-icon name="film"></ion-icon>
+      <ion-label>{{pelicula.Title}}</ion-label>
+      <ion-icon name="chatbox"></ion-icon>
+      <ion-label>{{pelicula.Genre}}</ion-label>
+      <ion-icon name="calendar"></ion-icon>
+      <ion-label>{{pelicula.Year}}</ion-label>
+      <ion-img [src]="pelicula.Poster" class="imagen"></ion-img>
+    </ion-item>
 </ion-content>

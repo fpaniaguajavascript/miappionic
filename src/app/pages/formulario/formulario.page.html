@@ -12,7 +12,6 @@
       <ion-icon name="search-sharp"></ion-icon>
       <ion-input placeholder="Título" [(ngModel)]="titulo"></ion-input>
       <ion-button (click)="buscarPelicula()">Buscar</ion-button>
-      <ion-button (click)="buscarPeliculaExistente()">Buscar Peli BBDD</ion-button>
     </ion-item>
     <ion-progress-bar type="indeterminate" *ngIf="cargando"></ion-progress-bar>
     <ion-item *ngIf="pelicula">
@@ -38,5 +37,16 @@
       <ion-item>
         <ion-img *ngIf="pelicula" src="{{pelicula?.Poster}}" id="poster"></ion-img>
       </ion-item>
+      <div class="rating">
+        <ion-icon size="large" name="heart-outline" *ngFor='let valoracion of [1,2,3,4,5]' (click)="valorar(valoracion)"></ion-icon>
+      </div>
     </ion-list>
 </ion-content>
+<ion-alert
+  [isOpen]="mensajeVisible"
+  [buttons]="botonCierre"
+  (didDismiss)="setOpen(false)"
+  header={{mensaje.header}}
+  subHeader={{mensaje.subHeader}}
+  message={{mensaje.message}}
+></ion-alert>

@@ -42,9 +42,15 @@ export class LocaldatabaseService {
   getPelicula(titulo: string) : Observable<Pelicula>{
     return new Observable(subscriber=>{
       this.storage.get(NODO_RAIZ).then((peliculas) => {
-        let pelicula = peliculas.find((p: Pelicula) => p.Title == titulo);
-        subscriber.next(pelicula);
-        subscriber.complete();
+        if (peliculas!=null){
+          let pelicula = peliculas.find((p: Pelicula) => p.Title == titulo);
+          subscriber.next(pelicula);
+          subscriber.complete();
+        } else {
+          subscriber.error("No existen películas en la base de datos");
+          subscriber.complete();
+        }
+        
       })});
   }
 
