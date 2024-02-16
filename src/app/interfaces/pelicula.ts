@@ -24,6 +24,7 @@ export interface Pelicula {
     Production: string
     Website: string
     Response: string
+    MyRating: number
   }
   
   export interface Rating {

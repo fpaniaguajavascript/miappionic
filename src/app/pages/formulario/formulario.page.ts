@@ -4,6 +4,9 @@ import { Pelicula } from 'src/app/interfaces/pelicula';
 import { HttpdataService } from 'src/app/services/httpdata.service';
 import { LocaldatabaseService } from 'src/app/services/localdatabase.service';
 
+const OUTLINE = "heart-outline";
+const FILLED = "heart";
+
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.page.html',
@@ -19,11 +22,14 @@ export class FormularioPage implements OnInit {
     message:""
   }
 
-  bucle:string[]=new Array<string>(10);
   titulo: string = "";
   cargando: boolean = false;
   pelicula: Pelicula | any;
+
+  iconos:string[]=[OUTLINE,OUTLINE,OUTLINE,OUTLINE,OUTLINE];
+
   constructor(private httpds: HttpdataService, private ldbs: LocaldatabaseService) {
+    this.valorar(0);
   }
 
   setOpen(open:boolean){
@@ -89,7 +95,15 @@ export class FormularioPage implements OnInit {
 
   
   valorar(valor:number){
-    console.log("Valorando:"+valor);
+    if (!this.pelicula) return;
+    this.pelicula.MyRating=valor;
+    for(let i=0;i<this.iconos.length;i++){
+      if (i<=this.pelicula.MyRating){
+        this.iconos[i]=FILLED;
+      } else {
+        this.iconos[i]=OUTLINE;
+      }
+    }
   }
   
   /*

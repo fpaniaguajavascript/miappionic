@@ -10,7 +10,7 @@
 <ion-content [fullscreen]="true">
   <ion-item>
     <ion-input placeholder="Título" [(ngModel)]="titulo" (input)="filtrar()"></ion-input>
-    <ion-badge slot="end" color="success">{{peliculas.length}}</ion-badge>
+    <ion-badge slot="end" color="success" *ngIf="peliculas">{{peliculas.length}}</ion-badge>
     <ion-badge slot="end" color="danger">{{genero}}</ion-badge>
   </ion-item>
   <ion-item-sliding *ngFor="let pelicula of peliculas">

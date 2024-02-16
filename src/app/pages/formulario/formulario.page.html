@@ -17,6 +17,9 @@
     <ion-item *ngIf="pelicula">
       <ion-button class="full-button" (click)="guardarPelicula()">Guardar</ion-button>
     </ion-item>
+    <div class="rating" *ngIf="pelicula">
+      <ion-icon color="danger" size="large" [name]="icono" *ngFor='let icono of iconos; index as valoracion' (click)="valorar(valoracion)"></ion-icon>
+    </div>
     <ion-list [inset]="true" *ngIf="pelicula">
       <ion-item>
         <ion-icon aria-hidden="true" name="film" slot="start"></ion-icon>
@@ -37,9 +40,6 @@
       <ion-item>
         <ion-img *ngIf="pelicula" src="{{pelicula?.Poster}}" id="poster"></ion-img>
       </ion-item>
-      <div class="rating">
-        <ion-icon size="large" name="heart" *ngFor='let valoracion of [1,2,3,4,5]' (click)="valorar(valoracion)"></ion-icon>
-      </div>
     </ion-list>
 </ion-content>
 <ion-alert
