@@ -50,11 +50,33 @@ export class LocaldatabaseService {
           subscriber.error("No existen películas en la base de datos");
           subscriber.complete();
         }
-        
       })});
   }
 
   getAllPeliculas() {
     return this.storage.get(NODO_RAIZ);
   }
+
+  //Solución al problema de la asincronía
+  borrarPelicula(titulo: string) : Observable<any>{
+    return new Observable(subscriber=> {
+      this.getAllPeliculas().then((peliculas:Pelicula[])=>{
+        peliculas.splice(peliculas.findIndex(pelicula=>pelicula.Title==titulo),1);
+        this.storage.set(NODO_RAIZ, peliculas).then(()=>{
+          subscriber.next();
+          subscriber.complete();
+        });
+      });
+    })
+  }
+
+  //Problema de asincronía
+  /*
+  borrarPelicula(titulo: string){
+    this.getAllPeliculas().then((peliculas:Pelicula[])=>{
+      peliculas.splice(peliculas.findIndex(pelicula=>pelicula.Title==titulo),1);
+      this.storage.set(NODO_RAIZ, peliculas);
+    });
+  }
+  */
 }
