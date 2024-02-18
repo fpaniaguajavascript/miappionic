@@ -17,7 +17,11 @@ const routes: Routes = [
   {
     path: 'listado',
     loadChildren: () => import('./pages/listado/listado.module').then( m => m.ListadoPageModule)
+  },  {
+    path: 'youtube',
+    loadChildren: () => import('./pages/youtube/youtube.module').then( m => m.YoutubePageModule)
   }
+
 ];
 
 @NgModule({
