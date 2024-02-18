@@ -42,13 +42,41 @@ export class LocaldatabaseService {
   getPelicula(titulo: string) : Observable<Pelicula>{
     return new Observable(subscriber=>{
       this.storage.get(NODO_RAIZ).then((peliculas) => {
-        let pelicula = peliculas.find((p: Pelicula) => p.Title == titulo);
-        subscriber.next(pelicula);
-        subscriber.complete();
+        if (peliculas!=null){
+          let pelicula = peliculas.find((p: Pelicula) => p.Title == titulo);
+          subscriber.next(pelicula);
+          subscriber.complete();
+        } else {
+          subscriber.error("No existen películas en la base de datos");
+          subscriber.complete();
+        }
       })});
   }
 
   getAllPeliculas() {
     return this.storage.get(NODO_RAIZ);
   }
+
+  //Solución al problema de la asincronía
+  borrarPelicula(titulo: string) : Observable<any>{
+    return new Observable(subscriber=> {
+      this.getAllPeliculas().then((peliculas:Pelicula[])=>{
+        peliculas.splice(peliculas.findIndex(pelicula=>pelicula.Title==titulo),1);
+        this.storage.set(NODO_RAIZ, peliculas).then(()=>{
+          subscriber.next();
+          subscriber.complete();
+        });
+      });
+    })
+  }
+
+  //Problema de asincronía
+  /*
+  borrarPelicula(titulo: string){
+    this.getAllPeliculas().then((peliculas:Pelicula[])=>{
+      peliculas.splice(peliculas.findIndex(pelicula=>pelicula.Title==titulo),1);
+      this.storage.set(NODO_RAIZ, peliculas);
+    });
+  }
+  */
 }

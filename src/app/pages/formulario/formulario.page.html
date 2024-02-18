@@ -12,12 +12,14 @@
       <ion-icon name="search-sharp"></ion-icon>
       <ion-input placeholder="Título" [(ngModel)]="titulo"></ion-input>
       <ion-button (click)="buscarPelicula()">Buscar</ion-button>
-      <ion-button (click)="buscarPeliculaExistente()">Buscar Peli BBDD</ion-button>
     </ion-item>
     <ion-progress-bar type="indeterminate" *ngIf="cargando"></ion-progress-bar>
     <ion-item *ngIf="pelicula">
       <ion-button class="full-button" (click)="guardarPelicula()">Guardar</ion-button>
     </ion-item>
+    <div class="rating" *ngIf="pelicula">
+      <ion-icon color="danger" size="large" [name]="icono" *ngFor='let icono of iconos; index as valoracion' (click)="valorar(valoracion)"></ion-icon>
+    </div>
     <ion-list [inset]="true" *ngIf="pelicula">
       <ion-item>
         <ion-icon aria-hidden="true" name="film" slot="start"></ion-icon>
@@ -40,3 +42,11 @@
       </ion-item>
     </ion-list>
 </ion-content>
+<ion-alert
+  [isOpen]="mensajeVisible"
+  [buttons]="botonCierre"
+  (didDismiss)="setOpen(false)"
+  header={{mensaje.header}}
+  subHeader={{mensaje.subHeader}}
+  message={{mensaje.message}}
+></ion-alert>

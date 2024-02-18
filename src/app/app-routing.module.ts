@@ -4,20 +4,21 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'listado/All',
     pathMatch: 'full'
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  },
-  { path: 'formulario',
-  loadChildren: () => import('./pages/formulario/formulario.module').then( m => m.FormularioPageModule)
+    path: 'formulario',
+    loadChildren: () => import('./pages/formulario/formulario.module').then(m => m.FormularioPageModule)
   },
   {
-    path: 'listado',
-    loadChildren: () => import('./pages/listado/listado.module').then( m => m.ListadoPageModule)
-  }
+    path: 'listado/:genero',
+    loadChildren: () => import('./pages/listado/listado.module').then(m => m.ListadoPageModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
+  },
 ];
 
 @NgModule({
@@ -26,4 +27,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
