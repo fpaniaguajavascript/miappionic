@@ -14,7 +14,7 @@ export class AppComponent {
     {label:'Action', url:'/listado/Action', icon:'bicycle'},
     {label:'Horror', url:'/listado/Horror', icon:'skull'},
     {label:'Fantasy', url:'/listado/Fantasy', icon:'diamond'},
-    {label:'Adventure', url:'/listado/Adventure', icon:'color-wand'},
+    {label:'Sci-Fi', url:'/listado/Sci-Fi', icon:'color-wand'},
   ];
   constructor() {}
 }

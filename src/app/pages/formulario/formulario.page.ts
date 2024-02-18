@@ -26,10 +26,9 @@ export class FormularioPage implements OnInit {
   cargando: boolean = false;
   pelicula: Pelicula | any;
 
-  iconos:string[]=[OUTLINE,OUTLINE,OUTLINE,OUTLINE,OUTLINE];
+  iconos:string[]=new Array(5);
 
   constructor(private httpds: HttpdataService, private ldbs: LocaldatabaseService) {
-    this.valorar(0);
   }
 
   setOpen(open:boolean){
@@ -50,6 +49,7 @@ export class FormularioPage implements OnInit {
       next:pelicula => {
         if(pelicula!=undefined){
           this.pelicula = pelicula;
+          this.valorar(this.pelicula.MyRating);
           this.mostrarMensaje("La película ha sido encontrada en el almacenamiento local");
         } else {
           this.buscarPeliculaOMDB();
@@ -74,6 +74,7 @@ export class FormularioPage implements OnInit {
         next(retorno: Pelicula) {
           console.warn("La petición se ha resuelto satisfactoriamente");
           formulario.pelicula = retorno;
+          formulario.valorar();
           formulario.mostrarMensaje("La película ha sido encontrada en OMDB");
         },
         error(error: HttpErrorResponse) {
@@ -94,7 +95,8 @@ export class FormularioPage implements OnInit {
   }
 
   
-  valorar(valor:number){
+  valorar(valor:number=0){
+    console.log("valorando");
     if (!this.pelicula) return;
     this.pelicula.MyRating=valor;
     for(let i=0;i<this.iconos.length;i++){
