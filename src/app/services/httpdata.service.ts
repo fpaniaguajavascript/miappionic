@@ -7,7 +7,7 @@ import { OMDB_API_KEY } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class HttpdataService {
-  static URL = "http://www.omdbapi.com/";
+  static URL = "https://www.omdbapi.com/";
   constructor(private clienteHttp:HttpClient) { }
   getMovie(titulo:string) {
     const parametros = new HttpParams().
