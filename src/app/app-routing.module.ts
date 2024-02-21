@@ -8,7 +8,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'formulario',
+    path: 'formulario/:titulo',
     loadChildren: () => import('./pages/formulario/formulario.module').then(m => m.FormularioPageModule)
   },
   {

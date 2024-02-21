@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Pelicula } from 'src/app/interfaces/pelicula';
 import { HttpdataService } from 'src/app/services/httpdata.service';
 import { LocaldatabaseService } from 'src/app/services/localdatabase.service';
@@ -40,7 +40,10 @@ export class ListadoPage implements OnInit {
   genero:string="";
   peliculas:Pelicula[]=[];
   peliculasOriginales:Pelicula[]=[];
-  constructor(private ldbs:LocaldatabaseService, private ar:ActivatedRoute){
+  constructor(
+    private ldbs:LocaldatabaseService, 
+    private ar:ActivatedRoute,
+    private router:Router){
   }
   ngOnInit(): void {
     this.ar.params.subscribe(params=>{ 
@@ -68,6 +71,7 @@ export class ListadoPage implements OnInit {
   }
   editar(titulo:string){
     console.log("Editando " + titulo);
+    this.router.navigate(['formulario/'+titulo]);
   }
   borrar(titulo:string){
     console.log("Borrando " + titulo);

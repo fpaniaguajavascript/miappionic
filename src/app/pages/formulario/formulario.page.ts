@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Pelicula } from 'src/app/interfaces/pelicula';
 import { HttpdataService } from 'src/app/services/httpdata.service';
 import { LocaldatabaseService } from 'src/app/services/localdatabase.service';
@@ -28,15 +29,25 @@ export class FormularioPage implements OnInit {
 
   iconos:string[]=new Array(5);
 
-  constructor(private httpds: HttpdataService, private ldbs: LocaldatabaseService) {
+  constructor(
+    private httpds: HttpdataService, 
+    private ldbs: LocaldatabaseService,
+    private activatedRoute: ActivatedRoute ) {
+      this.mensajeVisible=false;
+  }
+
+  ngOnInit() {
+    const formulario = this;
+    this.activatedRoute.params.subscribe(params => {
+      if (params['titulo']!=='None'){
+        formulario.titulo = params['titulo'];
+        formulario.buscarPelicula();
+      }
+    });
   }
 
   setOpen(open:boolean){
     this.mensajeVisible=open;
-  }
-
-  ngOnInit() {
-    console.log("formulario.page.ngOnInit...");
   }
 
   mostrarMensaje(mensaje:string){
@@ -68,11 +79,10 @@ export class FormularioPage implements OnInit {
   private buscarPeliculaOMDB() {
     let formulario = this;
     this.cargando = true;
-    console.log("Buscando película...");
     this.httpds.getMovie(this.titulo).subscribe(
       ({
         next(retorno: Pelicula) {
-          console.warn("La petición se ha resuelto satisfactoriamente");
+          console.log("La petición se ha resuelto satisfactoriamente");
           formulario.pelicula = retorno;
           formulario.valorar();
           formulario.mostrarMensaje("La película ha sido encontrada en OMDB");
@@ -96,7 +106,6 @@ export class FormularioPage implements OnInit {
 
   
   valorar(valor:number=0){
-    console.log("valorando");
     if (!this.pelicula) return;
     this.pelicula.MyRating=valor;
     for(let i=0;i<this.iconos.length;i++){
